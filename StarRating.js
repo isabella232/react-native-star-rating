@@ -58,11 +58,6 @@ export default class StarRating extends Component {
         imageSource = this.props.unSelectStar;
       }
 
-      var onLayoutFunc = null;
-      if(i === 0) {
-        onLayoutFunc = this._onLayout;
-      }
-
       var styleArray = [];
       if(i !== this.state.maxStars - 1) {
         styleArray.push({ marginRight: this.props.interitemSpacing });
@@ -77,7 +72,6 @@ export default class StarRating extends Component {
           key={i}
           source={imageSource}
           style={styleArray}
-          onLayout={onLayoutFunc}
         />
       );
     }
@@ -85,6 +79,7 @@ export default class StarRating extends Component {
       <View
         style={styles.container}
         {...this._panResponder.panHandlers}
+        onLayout={this._onLayout}
       >
         {starArray}
       </View>
@@ -128,7 +123,7 @@ export default class StarRating extends Component {
 
   _updateChangeValue(evt) {
     var starWidth = this.state.starSize + this.props.interitemSpacing;
-    var rating = Math.ceil(evt.nativeEvent.locationX/starWidth);
+    var rating = Math.ceil((evt.nativeEvent.pageX-this.state.containerLayout.x)/starWidth);
     if(rating < 0) {
       rating = 0;
     }
