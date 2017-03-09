@@ -84,7 +84,7 @@ export default class StarRating extends Component {
     return (
       <View
         style={styles.container}
-        {...this._panResponder}
+        {...this._panResponder.panHandlers}
       >
         {starArray}
       </View>
