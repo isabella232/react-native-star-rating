@@ -128,7 +128,7 @@ export default class StarRating extends Component {
 
   _updateChangeValue(evt) {
     var starWidth = this.state.starSize + this.props.interitemSpacing;
-    var rating = Math.ceil((evt.nativeEvent.pageX-this.state.containerLayout.x)/starWidth);
+    var rating = Math.ceil(evt.nativeEvent.locationX/starWidth);
     if(rating < 0) {
       rating = 0;
     }
