@@ -4,6 +4,7 @@ import {
   View,
   StyleSheet,
   Image,
+  PanResponder
 } from 'react-native';
 
 export default class StarRating extends Component {
@@ -35,6 +36,15 @@ export default class StarRating extends Component {
     this._onLayout = this._onLayout.bind(this);
     this._onResponderMove = this._onResponderMove.bind(this);
     this._onResponderGrant = this._onResponderGrant.bind(this);
+  }
+
+  componentWillMount () {
+    this._panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: this._onStartShouldSetResponder,
+      onMoveShouldSetPanResponder: this._onMoveShouldSetResponder,
+      onPanResponderGrant: this._onResponderGrant,
+      onPanResponderMove: this._onResponderMove
+    })
   }
 
   render() {
@@ -74,10 +84,7 @@ export default class StarRating extends Component {
     return (
       <View
         style={styles.container}
-        onStartShouldSetResponder={this._onStartShouldSetResponder}
-        onMoveShouldSetResponder={this._onMoveShouldSetResponder}
-        onResponderGrant={this._onResponderGrant}
-        onResponderMove={this._onResponderMove}
+        {...this._panResponder}
       >
         {starArray}
       </View>
